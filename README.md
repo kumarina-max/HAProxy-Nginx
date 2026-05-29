@@ -152,3 +152,59 @@ backend web_servers
 ```
 ## Скриншот с запросами jpg картинок и других файлов на Simple Python Server
 ![task3](screenshots/task3.png)
+
+## Задание 4: HAProxy с разными бэкендами для разных доменов
+
+##  Конфигурация HAProxy
+
+```bash
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+listen stats
+    bind :8081
+    mode http
+    stats enable
+    stats uri /stats
+    stats realm HAProxy\ Statistics
+    stats auth admin:admin
+
+frontend web_frontend
+    bind *:8080
+    mode http
+
+    acl is_example1 hdr(host) -i example1.local
+    acl is_example2 hdr(host) -i example2.local
+
+    use_backend backend_example1 if is_example1
+    use_backend backend_example2 if is_example2
+    default_backend no_match
+
+backend backend_example1
+    mode http
+    balance roundrobin
+    server s1 127.0.0.1:8888 check inter 3s
+    server s2 127.0.0.1:8889 check inter 3s
+
+backend backend_example2
+    mode http
+    balance roundrobin
+    server s3 127.0.0.1:8890 check inter 3s
+    server s4 127.0.0.1:8891 check inter 3s
+
+backend no_match
+    mode http
+    http-request deny deny_status 403
+```
+## Cкриншот, демонстрирующий запросы к разным фронтендам и ответам от разных бэкендов.
+
+![haproxy_vhosts](screenshots/haproxy_vhosts.png)
+
+
