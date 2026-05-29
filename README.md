@@ -75,6 +75,11 @@ backend web_servers
     server s2 127.0.0.1:8889 check inter 3s weight 3
     server s3 127.0.0.1:8890 check inter 3s weight 4
 ```
+
+## С доменом example.local (работает) 
+
 ![example_host](screenshots/example_host.png)
+
+## Без домена example.local (отклоняется)
 
 ![no_example_host](screenshots/no_example_host.png)
