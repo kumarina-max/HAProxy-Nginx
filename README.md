@@ -150,3 +150,5 @@ backend web_servers
     server s2 127.0.0.1:8889 check inter 3s weight 3
     server s3 127.0.0.1:8890 check inter 3s weight 4
 ```
+## Скриншот с запросами jpg картинок и других файлов на Simple Python Server
+![task3](screenshots/task3.png)
