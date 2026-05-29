@@ -83,3 +83,36 @@ backend web_servers
 ## Без домена example.local (отклоняется)
 
 ![no_example_host](screenshots/no_example_host.png)
+
+# Задание 3: HAProxy + Nginx (статику отдаёт Nginx)
+
+
+##  Конфигурационный файл Nginx
+
+
+```nginx
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    # Статические файлы (.jpg) отдаём сами
+    location ~* \.jpg$ {
+        root /var/www/images;
+        expires 30d;
+        add_header Content-Type image/jpeg;
+    }
+
+    # Все остальные запросы отправляем на HAProxy
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
