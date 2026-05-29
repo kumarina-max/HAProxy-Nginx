@@ -37,7 +37,7 @@ backend web_servers
 ```
 
 
-# Задание 2: HAProxy + Weighted Round Robin (7 уровень)
+## Задание 2: HAProxy + Weighted Round Robin (7 уровень)
 
 ## Конфигурация HAProxy
 
