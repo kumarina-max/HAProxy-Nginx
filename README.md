@@ -84,7 +84,7 @@ backend web_servers
 
 ![no_example_host](screenshots/no_example_host.png)
 
-## Задание 3: HAProxy + Nginx (статику отдаёт Nginx)
+## Задание 3: HAProxy + Nginx 
 
 
 ##  Конфигурационный файл Nginx
